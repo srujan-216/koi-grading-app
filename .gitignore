@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+!.env.example
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+exports/
+.venv/
+venv/
+.DS_Store
+.streamlit/secrets.toml
+
+# This is a CODE-ONLY repo — images live in a private Supabase Storage bucket.
+# Never commit the local image folder.
+COHORT_VIS/
+COHORT_V2/

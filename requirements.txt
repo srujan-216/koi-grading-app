@@ -1,0 +1,6 @@
+streamlit>=1.36,<2
+psycopg2-binary>=2.9,<3
+# supabase-py is only needed by scripts/upload_images_to_supabase.py and
+# scripts/init_pg_and_load.py when they talk to Supabase Storage; the app
+# itself only needs streamlit + psycopg2.
+supabase>=2.5,<3

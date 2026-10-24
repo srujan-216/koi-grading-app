@@ -1,0 +1,17 @@
+[client]
+# Hide the auto page navigation sidebar so radiologists don't see the Admin page link.
+# The admin page is still reachable at /Admin and is gated by ADMIN_TOKEN.
+showSidebarNavigation = false
+
+[server]
+# Streamlit's upload limit — small since we never upload files from the UI.
+maxUploadSize = 10
+# For wide reach, let the Space's public URL serve on the configured port.
+headless = true
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
