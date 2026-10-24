@@ -241,13 +241,14 @@ kl_l = c2.radio(
 conf = st.slider("Confidence (0 = unsure, 100 = certain)", 0, 100, 70,
                  key=f"conf_{case['case_id']}")
 usable = st.radio("Is this a gradable AP knee image?", ["yes", "no"],
-                  horizontal=True, index=0, key=f"use_{case['case_id']}")
+                  horizontal=True, index=None, key=f"use_{case['case_id']}")
 notes = st.text_input("Notes (optional)", key=f"note_{case['case_id']}")
 
-# Guard: both KL fields and (for montage) a frame must be chosen
+# Guard: KL fields, usable, and (for montage) a frame must all be chosen
 missing = []
 if kl_r is None: missing.append("RIGHT KL")
 if kl_l is None: missing.append("LEFT KL")
+if usable is None: missing.append("Usable (yes/no)")
 if not frame_ok: missing.append("the AP frame")
 can_save = not missing
 

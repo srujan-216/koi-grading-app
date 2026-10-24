@@ -106,8 +106,8 @@ print("\n=== Test 2: Required-field guard ===")
 save_btn = at.button[-1]
 (ok if save_btn.disabled else bad)("Save disabled when nothing picked")
 caps = " | ".join(c.value for c in at.caption)
-if "RIGHT KL" in caps and "LEFT KL" in caps and "AP frame" in caps:
-    ok("caption lists all three missing fields")
+if "RIGHT KL" in caps and "LEFT KL" in caps and "AP frame" in caps and "Usable" in caps:
+    ok("caption lists all four missing fields (frame + both KL + Usable)")
 else:
     bad(f"missing-fields caption wrong: {caps!r}")
 
@@ -116,9 +116,13 @@ at.radio[0].set_value("f01")
 at.run()
 (ok if at.button[-1].disabled else bad)("Save still disabled after frame only")
 
-# Pick RIGHT and LEFT — Save should enable
+# Pick RIGHT and LEFT — Save should still be disabled (Usable not picked yet)
 at.radio[1].set_value("2"); at.radio[2].set_value("3"); at.run()
-(ok if not at.button[-1].disabled else bad)("Save enabled after frame + both KL")
+(ok if at.button[-1].disabled else bad)("Save still disabled after frame + both KL (Usable missing)")
+
+# Pick Usable — now Save should enable
+at.radio[3].set_value("yes"); at.run()
+(ok if not at.button[-1].disabled else bad)("Save enabled after frame + both KL + Usable")
 
 # ---------- Test 3: Happy-path save ----------
 print("\n=== Test 3: Happy-path save ===")
@@ -189,10 +193,11 @@ at3 = login("drb", "cedar-plum-83")
 md7 = " | ".join(m.value for m in at3.markdown)
 (ok if "Case 0001" in md7 else bad)("drb starts at Case 0001")
 
-# Beta grades 2 cases
+# drb grades 2 cases
 for _ in range(2):
     at3.radio[0].set_value("f01")
     at3.radio[1].set_value("1"); at3.radio[2].set_value("2")
+    at3.radio[3].set_value("yes")  # Usable now required
     at3.run()
     at3.button[-1].click().run()
 
